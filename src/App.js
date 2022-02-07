@@ -16,6 +16,7 @@ function App() {
 	const [turns, setTurns] = useState(0);
 	const [choiceOne, setChoiceOne] = useState(null);
 	const [choiceTwo, setChoiceTwo] = useState(null);
+	const [disabled, setDisabled] = useState(false);
 	const shuffleCards = () => {
 		const shuffledCards = [...cardImages, ...cardImages]
 			.sort(() => Math.random() - 0.5)
@@ -29,18 +30,16 @@ function App() {
 
 	useEffect(() => {
 		if (choiceOne && choiceTwo) {
+			// Después de que seleccionamos dos cartas hacemos que la deshabilitación ocurra
+			setDisabled(true)
 			if (choiceOne.src === choiceTwo.src) {
-				// Modificamos el estado de las cartas para cambiar la propiedad matched
 				setCards(prevCards => {
 					return prevCards.map(card => {
-						// Revisamos si la carta del arreglo que estamos iterando es igual a la carta escogida (una o dos da igual porque la propiedad src es la misma). Y si lo es entonces cambiamos la propiedad matched.
 						if (card.src === choiceOne.src) {
-							// Retornamos un nuevo objeto con las mismas propiedades de la carta pero con la propiedad matched cambiada. Así retornamos un nuevo objeto carta al arreglo nuevo (nuevo estado) en lugar de la carta vieja
 							return {
 								...card,
 								matched: true,
 							};
-							// Añadimos una cláusula else para que si las carta del arreglo en la iteración actual no hace match con la opción entonces simplemente devolvamos la misma carta
 						} else {
 							return card;
 						}
@@ -48,7 +47,6 @@ function App() {
 				});
 				resetCards();
 			} else {
-				// Queremos demorar el reset cuando no se ha  producido un match. Por eso tuvimos que añadir un else y un segundo resetCards para manejar esa situación.
 				setTimeout(() => resetCards(), 1000);
 			}
 		}
@@ -57,6 +55,8 @@ function App() {
 		setChoiceOne(null);
 		setChoiceTwo(null);
 		setTurns(prevTurn => ++prevTurn);
+		// Una vez terminado el turno habilitamos las cartas nuevamente
+		setDisabled(false);
 	};
 
 	const handleChoice = card => {
@@ -67,11 +67,13 @@ function App() {
 		<div className='app'>
 			<h1>Memory Game</h1>
 			<button onClick={shuffleCards}>New Game</button>
+			{/* Pasamos disabled por props */}
 			<CardGrid
 				cards={cards}
 				handleChoice={handleChoice}
 				choiceOne={choiceOne}
 				choiceTwo={choiceTwo}
+				disabled={disabled}
 			/>
 		</div>
 	);

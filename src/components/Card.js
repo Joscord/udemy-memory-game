@@ -1,15 +1,18 @@
 import React from 'react';
 import './Card.css';
 
-// Recibimos la propiedad flipped
-const Card = ({ card, handleChoice, flipped }) => {
+// Recibimos disabled
+const Card = ({ card, handleChoice, flipped, isDisabled }) => {
+	// Ahora hacemos un check de disabled para evitar que se seleccione si ya hay dos
 	const handleClick = () => {
-		handleChoice(card);
+		if (!isDisabled) {
+			handleChoice(card);
+		}
 	};
 
 	return (
 		<div className='card'>
-			{/* Usamos el operador ternario para evaluar el valor de flipped y aplicar o no la clase flipped */}
+			{/* Añadimos una propiedad disabled cuyo valor es dinámico */}
 			<div className={flipped ? 'flipped' : ''}>
 				<img src={card.src} className='front' alt='card-front' />
 				<img
@@ -17,6 +20,7 @@ const Card = ({ card, handleChoice, flipped }) => {
 					className='back'
 					onClick={handleClick}
 					alt='card-back'
+					disabled={isDisabled}
 				/>
 			</div>
 		</div>
