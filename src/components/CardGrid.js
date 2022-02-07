@@ -4,10 +4,10 @@ import Card from './Card';
 // importamos los estilos
 import './CardGrid.css';
 
-const CardGrid = ({cards}) => (
+const CardGrid = ({ cards, handleChoice }) => (
 	<div className='card-grid'>
-		{cards.map(({ id, src }) => (
-			<Card id={id} src={src} key={id}/>
+		{cards.map((card) => (
+			<Card key={card.id} card={card} handleChoice={handleChoice} />
 		))}
 	</div>
 );
