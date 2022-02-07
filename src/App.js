@@ -24,13 +24,20 @@ function App() {
 				...card,
 				id: Math.random(),
 			}));
+		// Deshabilitmamos las cartas seleccionadas cuando entramos a un nuevo juego
+		setChoiceOne(null)
+		setChoiceTwo(null)
 		setCards(shuffledCards);
 		setTurns(0);
 	};
 
+	// Usamos otro useEffect para empezar el juego automáticamente
+	useEffect(() => {
+		shuffleCards();
+	}, [])
+
 	useEffect(() => {
 		if (choiceOne && choiceTwo) {
-			// Después de que seleccionamos dos cartas hacemos que la deshabilitación ocurra
 			setDisabled(true)
 			if (choiceOne.src === choiceTwo.src) {
 				setCards(prevCards => {
@@ -55,7 +62,6 @@ function App() {
 		setChoiceOne(null);
 		setChoiceTwo(null);
 		setTurns(prevTurn => ++prevTurn);
-		// Una vez terminado el turno habilitamos las cartas nuevamente
 		setDisabled(false);
 	};
 
@@ -67,7 +73,6 @@ function App() {
 		<div className='app'>
 			<h1>Memory Game</h1>
 			<button onClick={shuffleCards}>New Game</button>
-			{/* Pasamos disabled por props */}
 			<CardGrid
 				cards={cards}
 				handleChoice={handleChoice}
@@ -75,6 +80,8 @@ function App() {
 				choiceTwo={choiceTwo}
 				disabled={disabled}
 			/>
+			{/* Añadimos los turnos */}
+			<p>Turns: {turns}</p>
 		</div>
 	);
 }
