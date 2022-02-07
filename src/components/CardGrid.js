@@ -5,7 +5,7 @@ import Card from './Card';
 const CardGrid = ({cards}) => (
 	<div className='card-grid'>
 		{cards.map(({ id, src }) => (
-			<Card id={id} src={src} />
+			<Card id={id} src={src} key={id}/>
 		))}
 	</div>
 );
