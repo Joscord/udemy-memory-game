@@ -1,21 +1,24 @@
 import React from 'react';
 import './Card.css';
 
-const Card = ({card, handleChoice}) => {
-
+// Recibimos la propiedad flipped
+const Card = ({ card, handleChoice, flipped }) => {
 	const handleClick = () => {
-		handleChoice(card)
-	}
+		handleChoice(card);
+	};
 
 	return (
 		<div className='card'>
-			<img src={card.src} className='front' alt='card-front' />
-			<img
-				src='/assets/images/cover.png'
-				className='back'
-				onClick={handleClick}
-				alt='card-back'
-			/>
+			{/* Usamos el operador ternario para evaluar el valor de flipped y aplicar o no la clase flipped */}
+			<div className={flipped ? 'flipped' : ''}>
+				<img src={card.src} className='front' alt='card-front' />
+				<img
+					src='/assets/images/cover.png'
+					className='back'
+					onClick={handleClick}
+					alt='card-back'
+				/>
+			</div>
 		</div>
 	);
 };

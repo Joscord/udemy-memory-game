@@ -64,7 +64,7 @@ function App() {
 		<div className='app'>
 			<h1>Memory Game</h1>
 			<button onClick={shuffleCards}>New Game</button>
-			<CardGrid cards={cards} handleChoice={handleChoice} />
+			<CardGrid cards={cards} handleChoice={handleChoice} choiceOne={choiceOne} choiceTwo={choiceTwo}/>
 		</div>
 	);
 }
