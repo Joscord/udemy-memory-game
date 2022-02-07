@@ -46,8 +46,11 @@ function App() {
 						}
 					});
 				});
+				resetCards();
+			} else {
+				// Queremos demorar el reset cuando no se ha  producido un match. Por eso tuvimos que añadir un else y un segundo resetCards para manejar esa situación.
+				setTimeout(() => resetCards(), 1000);
 			}
-			resetCards();
 		}
 	}, [choiceOne, choiceTwo]);
 	const resetCards = () => {
@@ -64,7 +67,12 @@ function App() {
 		<div className='app'>
 			<h1>Memory Game</h1>
 			<button onClick={shuffleCards}>New Game</button>
-			<CardGrid cards={cards} handleChoice={handleChoice} choiceOne={choiceOne} choiceTwo={choiceTwo}/>
+			<CardGrid
+				cards={cards}
+				handleChoice={handleChoice}
+				choiceOne={choiceOne}
+				choiceTwo={choiceTwo}
+			/>
 		</div>
 	);
 }

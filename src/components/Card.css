@@ -11,9 +11,22 @@
 
 .card .front {
     transform: rotateY(90deg);
+    transition: all ease-in 0.2s;
     position: absolute;
 }
 
 .flipped .front {
     transform: rotateY(0deg);
+    transition-delay: 0.2s;
 }
+
+.card .back {
+    transition: all ease-in 0.2s;
+    transition-delay: 0.2s;
+}
+
+/* Cuando damos vuelta la carta aplicamos una rotación de 90 en el ejeY para esconder el cover*/
+.flipped .back {
+    transform: rotateY(90deg);
+    transition-delay: 0s;
+} 
